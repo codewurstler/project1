@@ -2,15 +2,40 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Note App</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js" integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous" defer></script>
-  <script src="scripts/index.js" type="module"></script>
-
-  <link rel="stylesheet" href="styles/index.css">
+  <title>Project 1</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-  <h1></h1>
+  <div class="content">
+    <h1>ToDo</h1>
+    <h2>Philipp Isaak</h2>
+  </div>
+  <div class="todo">
+    <div class="form-buttons">
+      <button id="btn-create">Create new ToDo</button>
+      <button id="btn-stlye">Toggle Style</button>
+    </div>
+    <div class="form-buttons filters">
+      <div class="form-buttons-group">
+        <button id="btn-filter-name">Name</button>
+        <button id="btn-filter-duedate">By Due Date</button>
+        <button id="btn-filter-creationdate">By Creation Date</button>
+        <button id="btn-filter-importance">By Importance</button>
+      </div>
+      <div class="form-buttons-group">
+        <button id="btn-filter-completed">Filter Completed</button>
+      </div>
+    </div>
+    <div class="form">
+      <form action="">
+
+      </form>
+    </div>
+  </div>
 </div>
 </body>
 </html>

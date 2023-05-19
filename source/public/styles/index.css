@@ -1,3 +1,76 @@
-* {
-    box-sizing: border-box;
+/*
+VARIABLES
+ */
+:root {
+    --white: #FFFFFF;
+    --light-beige: #FBF8F1;
+    --medium-beige: #F7ECDE;
+    --dark-beige: #E9DAC1;
+    --blue: #54BAB9;
+    --dark-blue: #3e8c8b;
+    --box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+
+    --border-radius: 4px;
+}
+
+body {
+    background: var(--light-beige);
+    height: 100%;
+    margin: 0;
+    font-family: "Poppins", Arial, sans-serif;
+    font-size: 16px;
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container h1 {
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 64px;
+}
+
+.todo {
+    width: 800px;
+    height: 800px;
+    background: var(--white);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+}
+
+.todo form {
+
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-buttons.filters {
+    margin-top: 1.5rem;
+}
+
+button {
+    background: var(--blue);
+    color: var(--white);
+    padding: .5rem;
+    font-weight: 500;
+    border: none;
+    font-size: 16px;
+    transition: background 0.25s, color 0.25s;
+
+    border-radius: var(--border-radius);
+}
+
+button:hover {
+    background: var(--dark-blue);
+    cursor: pointer;
 }
