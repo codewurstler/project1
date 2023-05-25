@@ -5,6 +5,26 @@ function changeMode() {
   element.classList.toggle("dark-mode");
 }
 
+//HIDE AND SHOW FORM
+const form = document.querySelector("#todo-form");
+const todoList = document.querySelector(".todo-list-container");
+function showForm() {
+  form.style.display = "block";
+  todoList.style.display = "none";
+}
+function hideForm() {
+  form.style.display = "none";
+  todoList.style.display = "block";
+}
+
+document.querySelector("#btn-create").addEventListener("click", showForm);
+document
+  .querySelector("#new-todo-overview")
+  .addEventListener("click", hideForm);
+document
+  .querySelector("#new-todo-submit-overview")
+  .addEventListener("click", hideForm);
+
 const toDos = [
   {
     title: "Test",

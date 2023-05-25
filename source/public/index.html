@@ -13,37 +13,39 @@
     <h2>Philipp Isaak</h2>
   </div>
   <div class="todo">
-    <div class="todo-buttons">
-      <button id="btn-create" class="btn">Create new ToDo</button>
-      <button id="btn-style" class="btn">Toggle Style</button>
-    </div>
-    <div class="todo-buttons filters">
-      <div class="todo-buttons-group">
-        <button id="btn-filter-name" class="btn">Name</button>
-        <button id="btn-filter-duedate" class="btn">By Due Date</button>
-        <button id="btn-filter-creationdate" class="btn">By Creation Date</button>
-        <button id="btn-filter-importance" class="btn">By Importance</button>
+    <div class="todo-list-container">
+      <div class="todo-buttons">
+        <button id="btn-create" class="btn">Create new ToDo</button>
+        <button id="btn-style" class="btn">Toggle Style</button>
       </div>
-      <div class="todo-buttons-group">
-        <button id="btn-filter-completed" class="btn">Filter Completed</button>
+      <div class="todo-buttons filters">
+        <div class="todo-buttons-group">
+          <button id="btn-filter-name" class="btn">Name</button>
+          <button id="btn-filter-duedate" class="btn">By Due Date</button>
+          <button id="btn-filter-creationdate" class="btn">By Creation Date</button>
+          <button id="btn-filter-importance" class="btn">By Importance</button>
+        </div>
+        <div class="todo-buttons-group">
+          <button id="btn-filter-completed" class="btn">Filter Completed</button>
+        </div>
       </div>
-    </div>
-    <div class="todo-list">
-      <div class="todo-list-item">
-        <div class="todo-list-item-inner-1">
-          <p>Due: in a day</p>
-          <input type="checkbox" id="todo-completion" name="todo-completion" value="completed">
-          <label for="todo-completion"> Open</label>
-        </div>
-        <div class="todo-list-item-inner-2">
-          <p>Buy some Stuff</p>
-          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-        </div>
-        <div class="todo-list-item-inner-3">
-          <p>&#9888; &#9888; &#9888; &#9888;</p>
-        </div>
-        <div class="todo-list-item-inner-4">
-          <button id="btn-list-item-edit" class="btn">Edit</button>
+      <div class="todo-list">
+        <div class="todo-list-item">
+          <div class="todo-list-item-inner-1">
+            <p>Due: in a day</p>
+            <input type="checkbox" id="todo-completion" name="todo-completion" value="completed">
+            <label for="todo-completion"> Open</label>
+          </div>
+          <div class="todo-list-item-inner-2">
+            <p>Buy some Stuff</p>
+            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+          </div>
+          <div class="todo-list-item-inner-3">
+            <p>&#9888; &#9888; &#9888; &#9888;</p>
+          </div>
+          <div class="todo-list-item-inner-4">
+            <button id="btn-list-item-edit" class="btn">Edit</button>
+          </div>
         </div>
       </div>
     </div>
@@ -61,8 +63,8 @@
 
       <div class="form-group">
         <label for="importance">Importance</label>
-        <select id="importance" name="importance">
-          <option value="1">1</option>
+        <select id="importance" name="importance" required>
+          <option value="">Add an importance</option>
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
@@ -72,7 +74,7 @@
 
       <div class="form-group">
         <label for="date">Date</label>
-        <input type="date" id="date">
+        <input type="date" id="date" required>
       </div>
 
       <div class="form-group date">
@@ -83,7 +85,7 @@
       <div class="form-buttons">
         <input type="submit" id="new-todo-submit" class="btn" value="Create">
         <input type="submit" id="new-todo-submit-overview" class="btn" value="Create & Overview">
-        <button  id="new-todo-overview" class="btn">Overview</button>
+        <button type="button" id="new-todo-overview" class="btn">Overview</button>
       </div>
     </form>
 

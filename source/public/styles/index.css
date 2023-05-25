@@ -33,6 +33,10 @@ body {
     font-size: 64px;
 }
 
+.show {
+    display: block;
+}
+
 .todo {
     width: 800px;
     height: 100%;
@@ -94,6 +98,10 @@ body {
 
 .todo-list-item-inner-3 {
     text-align: right;
+}
+
+form#todo-form {
+    display: none;
 }
 
 form#todo-form .form-group {
