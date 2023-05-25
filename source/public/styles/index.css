@@ -3,7 +3,8 @@ VARIABLES
  */
 :root {
     --white: #FFFFFF;
-    --light-beige: #FBF8F1;
+    --bg: #FBF8F1;
+    --bg-light: #FFFFFF;
     --medium-beige: #F7ECDE;
     --dark-beige: #E9DAC1;
     --blue: #54BAB9;
@@ -12,8 +13,14 @@ VARIABLES
     --border-radius: 4px;
 }
 
+.dark-mode {
+    --bg: #303030;
+    --bg-light: #303030;
+    color: var(--white);
+}
+
 body {
-    background: var(--light-beige);
+    background: var(--bg);
     height: 100%;
     margin: 0;
     font-family: "Poppins", Arial, sans-serif;
@@ -40,10 +47,14 @@ body {
 .todo {
     width: 800px;
     height: 100%;
-    background: var(--white);
+    background: var(--bg-light);
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
     padding: 2rem;
+}
+
+.dark-mode .todo {
+    border: 1px solid var(--white);
 }
 
 .todo-buttons {
