@@ -4,3 +4,36 @@ function changeMode() {
   const element = document.body;
   element.classList.toggle("dark-mode");
 }
+
+const toDos = [
+  {
+    title: "Test",
+    description: "Lorem ipsum dolor sit am...",
+    date: "2023-10-10",
+    importance: 1,
+    done: false,
+  },
+  {
+    title: "Test 1",
+    description: "Lorem ipsum dolor sit am...",
+    date: "2023-10-10",
+    importance: 3,
+    done: false,
+  },
+  {
+    title: "Test 2",
+    description: "Lorem ipsum dolor sit am...",
+    date: "2023-11-12",
+    importance: 4,
+    done: true,
+  },
+  {
+    title: "Test 3",
+    description: "Lorem ipsum dolor sit am...",
+    date: "2023-11-09",
+    importance: 2,
+    done: false,
+  },
+];
+
+console.log(toDos.title);

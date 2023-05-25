@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <title>Project 1</title>
   <link rel="stylesheet" type="text/css" href="styles/index.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -16,18 +14,18 @@
   </div>
   <div class="todo">
     <div class="todo-buttons">
-      <button id="btn-create">Create new ToDo</button>
-      <button id="btn-style">Toggle Style</button>
+      <button id="btn-create" class="btn">Create new ToDo</button>
+      <button id="btn-style" class="btn">Toggle Style</button>
     </div>
     <div class="todo-buttons filters">
       <div class="todo-buttons-group">
-        <button id="btn-filter-name">Name</button>
-        <button id="btn-filter-duedate">By Due Date</button>
-        <button id="btn-filter-creationdate">By Creation Date</button>
-        <button id="btn-filter-importance">By Importance</button>
+        <button id="btn-filter-name" class="btn">Name</button>
+        <button id="btn-filter-duedate" class="btn">By Due Date</button>
+        <button id="btn-filter-creationdate" class="btn">By Creation Date</button>
+        <button id="btn-filter-importance" class="btn">By Importance</button>
       </div>
       <div class="todo-buttons-group">
-        <button id="btn-filter-completed">Filter Completed</button>
+        <button id="btn-filter-completed" class="btn">Filter Completed</button>
       </div>
     </div>
     <div class="todo-list">
@@ -45,66 +43,50 @@
           <p>&#9888; &#9888; &#9888; &#9888;</p>
         </div>
         <div class="todo-list-item-inner-4">
-          <button id="btn-list-item-edit">Edit</button>
-        </div>
-      </div>
-      <div class="todo-list-item">
-        <div class="todo-list-item-inner-1">
-          <p>Due: in a day</p>
-          <input type="checkbox" id="todo-completion" name="todo-completion" value="completed">
-          <label for="todo-completion"> Open</label>
-        </div>
-        <div class="todo-list-item-inner-2">
-          <p>Buy some Stuff</p>
-          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-        </div>
-        <div class="todo-list-item-inner-3">
-          <p>&#9888; &#9888; &#9888; &#9888;</p>
-        </div>
-        <div class="todo-list-item-inner-4">
-          <button id="btn-list-item-edit">Edit</button>
-        </div>
-      </div>
-      <div class="todo-list-item">
-        <div class="todo-list-item-inner-1">
-          <p>Due: in a day</p>
-          <input type="checkbox" id="todo-completion" name="todo-completion" value="completed">
-          <label for="todo-completion"> Open</label>
-        </div>
-        <div class="todo-list-item-inner-2">
-          <p>Buy some Stuff</p>
-          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-        </div>
-        <div class="todo-list-item-inner-3">
-          <p>&#9888; &#9888; &#9888; &#9888;</p>
-        </div>
-        <div class="todo-list-item-inner-4">
-          <button id="btn-list-item-edit">Edit</button>
-        </div>
-      </div>
-      <div class="todo-list-item">
-        <div class="todo-list-item-inner-1">
-          <p>Due: in a day</p>
-          <input type="checkbox" id="todo-completion" name="todo-completion" value="completed">
-          <label for="todo-completion"> Open</label>
-        </div>
-        <div class="todo-list-item-inner-2">
-          <p>Buy some Stuff</p>
-          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-        </div>
-        <div class="todo-list-item-inner-3">
-          <p>&#9888; &#9888; &#9888; &#9888;</p>
-        </div>
-        <div class="todo-list-item-inner-4">
-          <button id="btn-list-item-edit">Edit</button>
+          <button id="btn-list-item-edit" class="btn">Edit</button>
         </div>
       </div>
     </div>
-    <div class="form">
-      <form action="">
 
-      </form>
-    </div>
+    <form action="" id="todo-form">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" placeholder="Add a title" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description">Add a description</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="importance">Importance</label>
+        <select id="importance" name="importance">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" id="date">
+      </div>
+
+      <div class="form-group date">
+        <label for="status">Date</label>
+        <input type="checkbox" id="status" name="status" value="1">
+      </div>
+
+      <div class="form-buttons">
+        <input type="submit" id="new-todo-submit" class="btn" value="Create">
+        <input type="submit" id="new-todo-submit-overview" class="btn" value="Create & Overview">
+        <button  id="new-todo-overview" class="btn">Overview</button>
+      </div>
+    </form>
+
   </div>
 </div>
 <script type="text/javascript" src="scripts/index.js"></script>
