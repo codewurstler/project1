@@ -1,3 +1,27 @@
+window.addEventListener("load", () => {
+  todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+  const todoForm = document.querySelector("#todo-form");
+
+  todoForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const todoItem = {
+      title: document.querySelector("#title").value,
+      description: document.querySelector("#description").value,
+      date: document.querySelector("#date").value,
+      importance: document.querySelector("#importance").value,
+      status: document.querySelector("#status").value,
+    };
+
+    todos.push(todoItem);
+
+    localStorage.setItem("todos", JSON.stringify(todos));
+
+    e.target.reset();
+  });
+});
+
 // CHANGE STYLE
 document.querySelector("#btn-style").addEventListener("click", changeMode);
 function changeMode() {
@@ -18,11 +42,9 @@ function hideForm() {
 }
 
 document.querySelector("#btn-create").addEventListener("click", showForm);
+document.querySelector("#todo-overview").addEventListener("click", hideForm);
 document
-  .querySelector("#new-todo-overview")
-  .addEventListener("click", hideForm);
-document
-  .querySelector("#new-todo-submit-overview")
+  .querySelector("#todo-input-overview")
   .addEventListener("click", hideForm);
 
 const toDos = [
