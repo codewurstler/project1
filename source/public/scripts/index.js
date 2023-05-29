@@ -47,11 +47,13 @@ window.addEventListener("load", () => {
 
     showTodos();
   });
+  // needs fixing because it shows double todos
   showTodos();
 });
 
 function showTodos() {
   const showTodoList = document.querySelector(".todo-list");
+
   showTodoList.innerHTML = "";
 
   // CHECKING TODO STATUS
@@ -100,8 +102,20 @@ function showTodos() {
           </div>
           <div class="todo-list-item-inner-4">
             <button id="btn-list-item-edit" class="btn">Edit</button>
+            <button id="btn-list-item-delete" class="btn warning">Delete</button>
           </div>
   `;
+
     todoList.appendChild(todoItem);
+
+    const deleteBtn = todoItem.querySelector("#btn-list-item-delete");
+
+    // DELETE TODO
+    deleteBtn.addEventListener("click", (e) => {
+      todos = todos.filter((t) => t !== todo);
+      localStorage.setItem("todos", JSON.stringify(todos));
+      // a fix for displaying todos after deleting one -> should actually be done with a function
+      window.location.reload();
+    });
   });
 }

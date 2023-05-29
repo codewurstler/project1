@@ -9,6 +9,8 @@ VARIABLES
     --dark-beige: #E9DAC1;
     --blue: #54BAB9;
     --dark-blue: #3e8c8b;
+    --red: #ff6961;
+    --dark-red: #ba4a44;
     --box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
     --border-radius: 4px;
 }
@@ -82,6 +84,15 @@ body {
     cursor: pointer;
 }
 
+.btn.warning {
+    background: var(--red);
+    color: var(--white);
+}
+
+.btn.warning:hover {
+    background: var(--dark-red);
+}
+
 .todo-list-item {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr 1fr;
@@ -94,6 +105,10 @@ body {
 
 .todo-list-item p {
     margin-top: 0;
+}
+
+.todo-list-item-importance.todo-list-item-importance-1::after {
+    content: "&#9888;";
 }
 
 .todo-list-item:hover {
