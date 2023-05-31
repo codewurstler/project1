@@ -1,4 +1,5 @@
-// CHANGE STYLE
+import todoService from "../services/service.js";
+
 document.querySelector("#btn-style").addEventListener("click", changeMode);
 function changeMode() {
   const element = document.body;
@@ -6,7 +7,7 @@ function changeMode() {
 }
 
 // maybe not so good
-let currentTodo = undefined;
+let currentTodo;
 //HIDE AND SHOW FORM
 const form = document.querySelector("#todo-form");
 const todoList = document.querySelector(".todo-list-container");
@@ -25,33 +26,10 @@ document
   .querySelector("#todo-input-overview")
   .addEventListener("click", hideForm);
 
-window.addEventListener("load", () => {
-  const todoForm = document.querySelector("#todo-form");
-
-  todoForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const todoItem = {
-      title: document.querySelector("#title").value,
-      description: document.querySelector("#description").value,
-      date: document.querySelector("#date").value,
-      importance: document.querySelector("#importance").value,
-      status: document.querySelector("#status").value,
-    };
-
-    todoService.addTodo(todoItem);
-
-    localStorage.setItem("todos", JSON.stringify(todos));
-
-    e.target.reset();
-
-    showTodos();
-  });
-  // needs fixing because it shows double todos
-  showTodos();
-});
+const todoForm = document.querySelector("#todo-form");
 
 function showTodos() {
+  const todos = todoService.getTodos();
   const showTodoList = document.querySelector(".todo-list");
 
   showTodoList.innerHTML = "";
@@ -71,18 +49,22 @@ function showTodos() {
     function todoImportance() {
       if (todo.importance === "1") {
         return "&#9888;";
-      } else if (todo.importance === "2") {
-        return "&#9888; &#9888;";
-      } else if (todo.importance === "3") {
-        return "&#9888; &#9888; &#9888;";
-      } else if (todo.importance === "4") {
-        return "&#9888; &#9888; &#9888; &#9888;";
-      } else if (todo.importance === "5") {
-        return "&#9888; &#9888; &#9888; &#9888; &#9888;";
-      } else {
-        return "No importance selected";
       }
+      if (todo.importance === "2") {
+        return "&#9888; &#9888;";
+      }
+      if (todo.importance === "3") {
+        return "&#9888; &#9888; &#9888;";
+      }
+      if (todo.importance === "4") {
+        return "&#9888; &#9888; &#9888; &#9888;";
+      }
+      if (todo.importance === "5") {
+        return "&#9888; &#9888; &#9888; &#9888; &#9888;";
+      }
+      return "No importance selected";
     }
+
     const todoImportanceLabel = todoImportance();
 
     const todoItem = document.createElement("div");
@@ -111,7 +93,7 @@ function showTodos() {
     const deleteBtn = todoItem.querySelector("#btn-list-item-delete");
 
     // DELETE TODO
-    deleteBtn.addEventListener("click", (e) => {
+    deleteBtn.addEventListener("click", () => {
       localStorage.setItem("todos", JSON.stringify(todos));
       // a fix for displaying todos after deleting one -> should actually be done with a function
       window.location.reload();
@@ -119,7 +101,7 @@ function showTodos() {
 
     const editBtn = todoItem.querySelector("#btn-list-item-edit");
 
-    editBtn.addEventListener("click", (e) => {
+    editBtn.addEventListener("click", () => {
       showForm();
       document.querySelector("#title").value = todo.title;
       document.querySelector("#description").value = todo.description;
@@ -139,8 +121,7 @@ function showTodos() {
     status: document.querySelector("#status").value,
   });
   function updateItems() {
-    todos[todos.findIndex((x) => x.id === currentTodo.id)] = getItemFromForm();
-    localStorage.setItem("todos", JSON.stringify(todos));
+    todoService.updateTodo(getItemFromForm());
   }
 
   const updateBtn = document.querySelector("#todo-update");
@@ -149,3 +130,23 @@ function showTodos() {
     updateItems();
   });
 }
+
+todoForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const todoItem = {
+    title: document.querySelector("#title").value,
+    description: document.querySelector("#description").value,
+    date: document.querySelector("#date").value,
+    importance: document.querySelector("#importance").value,
+    status: document.querySelector("#status").value,
+  };
+
+  todoService.addTodo(todoItem);
+
+  e.target.reset();
+
+  showTodos();
+});
+// needs fixing because it shows double todos
+showTodos();
