@@ -11,6 +11,7 @@ class TodoService {
     const newTodo = todo;
     newTodo.id = this.todos.length + 1;
     this.todos.push(newTodo);
+    localStorage.setItem("todos", JSON.stringify(this.todos));
     return newTodo;
   }
 

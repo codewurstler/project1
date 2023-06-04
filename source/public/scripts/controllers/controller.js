@@ -8,7 +8,8 @@ function changeMode() {
 
 // maybe not so good
 let currentTodo;
-//HIDE AND SHOW FORM
+
+// HIDE AND SHOW FORM
 const form = document.querySelector("#todo-form");
 const todoList = document.querySelector(".todo-list-container");
 function showForm() {
@@ -88,7 +89,7 @@ function showTodos() {
           </div>
   `;
 
-    todoList.appendChild(todoItem);
+    showTodoList.appendChild(todoItem);
 
     const deleteBtn = todoItem.querySelector("#btn-list-item-delete");
 
@@ -148,5 +149,31 @@ todoForm.addEventListener("submit", (e) => {
 
   showTodos();
 });
-// needs fixing because it shows double todos
 showTodos();
+
+const filterName = document.querySelector("#btn-filter-name");
+filterName.addEventListener("click", () => {
+  const todos = todoService.getTodos();
+  todos.sort((a, b) => {
+    return a.title.localeCompare(b.title);
+  });
+  showTodos();
+});
+
+const filterDate = document.querySelector("#btn-filter-duedate");
+filterDate.addEventListener("click", () => {
+  const todos = todoService.getTodos();
+  todos.sort((a, b) => {
+    return a.date.localeCompare(b.date);
+  });
+  showTodos();
+});
+
+const filterImportance = document.querySelector("#btn-filter-importance");
+filterImportance.addEventListener("click", () => {
+  const todos = todoService.getTodos();
+  todos.sort((a, b) => {
+    return a.importance.localeCompare(b.importance);
+  });
+  showTodos();
+});
