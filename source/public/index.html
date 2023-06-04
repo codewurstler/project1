@@ -21,12 +21,13 @@
       </div>
       <div class="todo-buttons filters">
         <div class="todo-buttons-group">
-          <button id="btn-filter-name" class="btn">Name</button>
+          <button id="btn-filter-name" class="btn">By Name</button>
           <button id="btn-filter-duedate" class="btn">By Due Date</button>
           <button id="btn-filter-importance" class="btn">By Importance</button>
+          <button id="btn-filter-status" class="btn">By Status</button>
         </div>
         <div class="todo-buttons-group">
-          <button id="btn-filter-completed" class="btn">Filter Completed</button>
+          <button id="btn-filter-reset" class="btn">Reset Filter</button>
         </div>
       </div>
       <div class="todo-list"></div>
@@ -47,6 +48,7 @@
         <label for="importance">Importance</label>
         <select id="importance" name="importance" required>
           <option value="">Add an importance</option>
+          <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
@@ -59,15 +61,17 @@
         <input type="date" id="date" required>
       </div>
 
-      <div class="form-group date">
+      <div class="form-group">
         <label for="status">Done</label>
-        <input type="checkbox" id="status" name="status" value="done">
+        <select id="status" name="status" required>
+          <option value="open">Open</option>
+          <option value="done">Done</option>
+        </select>
+
       </div>
 
       <div class="form-buttons">
         <input type="submit" id="todo-input" class="btn" value="Create">
-        <input type="submit" id="todo-input-overview" class="btn" value="Create & Overview">
-        <button type="button" id="todo-overview" class="btn">Overview</button>
         <button type="button" id="todo-update" class="btn">Update</button>
       </div>
     </form>

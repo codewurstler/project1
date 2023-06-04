@@ -34,6 +34,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
 }
 
 .container h1 {
@@ -124,6 +125,43 @@ body {
 
 .todo-list-item-inner-3 {
     text-align: right;
+}
+
+.btn#btn-list-item-delete {
+    margin-top: 1rem;
+}
+
+.todo-list-item.importance-1 .todo-list-item-inner-status::after {
+    content: "\26A0";
+}
+
+.todo-list-item.importance-2 .todo-list-item-inner-status::after {
+    content: "\26A0\26A0";
+}
+
+.todo-list-item.importance-3 .todo-list-item-inner-status::after {
+    content: "\26A0\26A0\26A0";
+}
+
+.todo-list-item.importance-4 .todo-list-item-inner-status::after {
+    content: "\26A0\26A0\26A0\26A0";
+}
+
+.todo-list-item.importance-5 .todo-list-item-inner-status::after {
+    content: "\26A0\26A0\26A0\26A0\26A0";
+}
+
+.todo-list-item.status-done {
+    opacity: 0.5;
+    transition: opacity 0.25s;
+}
+
+.todo-list-item.status-done p {
+    text-decoration: line-through;
+}
+
+.todo-list-item.status-done:hover {
+    opacity: 1;
 }
 
 form#todo-form {

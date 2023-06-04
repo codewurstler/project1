@@ -22,10 +22,8 @@ function hideForm() {
 }
 
 document.querySelector("#btn-create").addEventListener("click", showForm);
-document.querySelector("#todo-overview").addEventListener("click", hideForm);
-document
-  .querySelector("#todo-input-overview")
-  .addEventListener("click", hideForm);
+document.querySelector("#todo-input").addEventListener("click", hideForm);
+document.querySelector("#todo-update").addEventListener("click", hideForm);
 
 const todoForm = document.querySelector("#todo-form");
 
@@ -35,53 +33,51 @@ function showTodos() {
 
   showTodoList.innerHTML = "";
 
-  // CHECKING TODO STATUS
   todos.forEach((todo) => {
-    function todoStatus() {
-      if (todo.status === "done") {
-        return "Done";
-      } else {
-        return "Open";
-      }
-    }
-    const todoStatusLabel = todoStatus();
+    // CREATE TODO ITEM
+    const todoItem = document.createElement("div");
+    todoItem.classList.add("todo-list-item");
 
     // CHECKING TODO IMPORTANCE
     function todoImportance() {
       if (todo.importance === "1") {
-        return "&#9888;";
+        todoItem.classList.add("importance-1");
       }
       if (todo.importance === "2") {
-        return "&#9888; &#9888;";
+        todoItem.classList.add("importance-2");
       }
       if (todo.importance === "3") {
-        return "&#9888; &#9888; &#9888;";
+        todoItem.classList.add("importance-3");
       }
       if (todo.importance === "4") {
-        return "&#9888; &#9888; &#9888; &#9888;";
+        todoItem.classList.add("importance-4");
       }
       if (todo.importance === "5") {
-        return "&#9888; &#9888; &#9888; &#9888; &#9888;";
+        todoItem.classList.add("importance-5");
       }
       return "No importance selected";
     }
+    todoImportance();
 
-    const todoImportanceLabel = todoImportance();
+    function todoStatus() {
+      if (todo.status === "done") {
+        todoItem.classList.add("status-done");
+      }
+    }
+    todoStatus();
 
-    const todoItem = document.createElement("div");
-    todoItem.classList.add("todo-list-item");
+    // SET TODO ITEM INNER HTML
     todoItem.innerHTML = `
       <div class="todo-list-item-inner-1">
             <p>${todo.date}</p>
-            <input type="checkbox" id="todo-completion" name="todo-completion" value="${todo.status}">
-            <label for="todo-completion">${todoStatusLabel}</label>
+            <p>${todo.status}</p>
       </div>
           <div class="todo-list-item-inner-2">
             <p>${todo.title}</p>
             <p>${todo.description}</p>
           </div>
           <div class="todo-list-item-inner-3">
-            <p>${todoImportanceLabel}</p>
+            <div class="todo-list-item-inner-status"></div>
           </div>
           <div class="todo-list-item-inner-4">
             <button id="btn-list-item-edit" class="btn">Edit</button>
@@ -96,8 +92,7 @@ function showTodos() {
     // DELETE TODO
     deleteBtn.addEventListener("click", () => {
       localStorage.setItem("todos", JSON.stringify(todos));
-      // a fix for displaying todos after deleting one -> should actually be done with a function
-      window.location.reload();
+      showTodos();
     });
 
     const editBtn = todoItem.querySelector("#btn-list-item-edit");
@@ -123,6 +118,7 @@ function showTodos() {
   });
   function updateItems() {
     todoService.updateTodo(getItemFromForm());
+    showTodos();
   }
 
   const updateBtn = document.querySelector("#todo-update");
@@ -174,6 +170,15 @@ filterImportance.addEventListener("click", () => {
   const todos = todoService.getTodos();
   todos.sort((a, b) => {
     return a.importance.localeCompare(b.importance);
+  });
+  showTodos();
+});
+
+const filterStatus = document.querySelector("#btn-filter-status");
+filterStatus.addEventListener("click", () => {
+  const todos = todoService.getTodos();
+  todos.sort((a, b) => {
+    return b.status.localeCompare(a.status);
   });
   showTodos();
 });
