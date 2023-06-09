@@ -48,12 +48,18 @@ body {
 }
 
 .todo {
-    width: 800px;
+    width: 50vw;
     height: 100%;
     background: var(--bg-light);
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
     padding: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+    .todo {
+        width: 100%;
+    }
 }
 
 .dark-mode .todo {
@@ -164,26 +170,45 @@ body {
     opacity: 1;
 }
 
-form#todo-form {
-    display: none;
-}
-
-form#todo-form .form-group {
+#todo-form .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
 }
 
-form#todo-form .form-group.date {
+#todo-dialog {
+    border: none;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    background: var(--bg-light);
+    padding: 2rem;
+}
+
+.dark-mode #todo-dialog {
+    border: 1px solid var(--white);
+    color: var(--white);
+}
+
+#todo-form {
+    width: 45vw;
+}
+
+@media screen and (max-width: 800px) {
+    #todo-form {
+        width: 100vw;
+    }
+}
+
+#todo-form .form-group.date {
     display: flex;
     align-items: start;
 }
 
-form#todo-form input#status {
+#todo-form input#status {
     margin-left: 0;
 }
 
-form#todo-form .form-group label {
+#todo-form .form-group label {
     margin-bottom: 0.5rem;
 }
 

@@ -13,27 +13,9 @@
     <h1>ToDo</h1>
     <h2>Philipp Isaak</h2>
   </div>
-  <div class="todo">
-    <div class="todo-list-container">
-      <div class="todo-buttons">
-        <button id="btn-create" class="btn">Create new ToDo</button>
-        <button id="btn-style" class="btn">Toggle Style</button>
-      </div>
-      <div class="todo-buttons filters">
-        <div class="todo-buttons-group">
-          <button id="btn-filter-name" class="btn">By Name</button>
-          <button id="btn-filter-duedate" class="btn">By Due Date</button>
-          <button id="btn-filter-importance" class="btn">By Importance</button>
-          <button id="btn-filter-status" class="btn">By Status</button>
-        </div>
-        <div class="todo-buttons-group">
-          <button id="btn-filter-reset" class="btn">Reset Filter</button>
-        </div>
-      </div>
-      <div class="todo-list"></div>
-    </div>
 
-    <form action="" id="todo-form">
+  <dialog id="todo-dialog">
+    <form id="todo-form">
       <div class="form-group">
         <label for="title">Title</label>
         <input type="text" id="title" placeholder="Add a title" required>
@@ -71,12 +53,34 @@
       </div>
 
       <div class="form-buttons">
-        <input type="submit" id="todo-input" class="btn" value="Create">
+        <input type="submit" id="todo-submit" class="btn" value="Create">
         <button type="button" id="todo-update" class="btn">Update</button>
+        <input type="reset" id="todo-cancel" value="Cancel" formmethod="dialog" class="btn warning">
       </div>
     </form>
+  </dialog>
 
+  <div class="todo">
+    <div class="todo-list-container">
+      <div class="todo-buttons">
+        <button id="btn-create" class="btn">Create new ToDo</button>
+        <button id="btn-style" class="btn">Toggle Style</button>
+      </div>
+      <div class="todo-buttons filters">
+        <div class="todo-buttons-group">
+          <button id="btn-filter-name" class="btn">By Name</button>
+          <button id="btn-filter-duedate" class="btn">By Due Date</button>
+          <button id="btn-filter-importance" class="btn">By Importance</button>
+        </div>
+        <div class="todo-buttons-group">
+          <button id="btn-filter-reset" class="btn">Reset Filter</button>
+        </div>
+      </div>
+      <div class="todo-list"></div>
+    </div>
   </div>
+
 </div>
+
 </body>
 </html>

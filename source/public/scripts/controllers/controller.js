@@ -6,26 +6,26 @@ function changeMode() {
   element.classList.toggle("dark-mode");
 }
 
+const todoDialog = document.querySelector("#todo-dialog");
+const createTodoBtn = document.querySelector("#btn-create");
+const todoSubmitBtn = document.querySelector("#todo-submit");
+const todoUpdateBtn = document.querySelector("#todo-update");
+const todoCancelBtn = document.querySelector("#todo-cancel");
+const todoForm = document.querySelector("#todo-form");
+
+createTodoBtn.addEventListener("click", () => {
+  todoDialog.showModal();
+  todoForm.reset();
+  todoUpdateBtn.style.display = "none";
+  todoSubmitBtn.style.display = "inline-block";
+});
+
+todoCancelBtn.addEventListener("click", () => {
+  todoDialog.close();
+});
+
 // maybe not so good
 let currentTodo;
-
-// HIDE AND SHOW FORM
-const form = document.querySelector("#todo-form");
-const todoList = document.querySelector(".todo-list-container");
-function showForm() {
-  form.style.display = "block";
-  todoList.style.display = "none";
-}
-function hideForm() {
-  form.style.display = "none";
-  todoList.style.display = "block";
-}
-
-document.querySelector("#btn-create").addEventListener("click", showForm);
-document.querySelector("#todo-input").addEventListener("click", hideForm);
-document.querySelector("#todo-update").addEventListener("click", hideForm);
-
-const todoForm = document.querySelector("#todo-form");
 
 function showTodos() {
   const todos = todoService.getTodos();
@@ -98,7 +98,9 @@ function showTodos() {
     const editBtn = todoItem.querySelector("#btn-list-item-edit");
 
     editBtn.addEventListener("click", () => {
-      showForm();
+      todoDialog.showModal();
+      todoSubmitBtn.style.display = "none";
+      todoUpdateBtn.style.display = "inline-block";
       document.querySelector("#title").value = todo.title;
       document.querySelector("#description").value = todo.description;
       document.querySelector("#date").value = todo.date;
@@ -121,15 +123,16 @@ function showTodos() {
     showTodos();
   }
 
-  const updateBtn = document.querySelector("#todo-update");
-  updateBtn.addEventListener("click", (e) => {
+  todoUpdateBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    todoDialog.close();
     updateItems();
   });
 }
 
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
+  todoDialog.close();
 
   const todoItem = {
     title: document.querySelector("#title").value,
@@ -170,15 +173,6 @@ filterImportance.addEventListener("click", () => {
   const todos = todoService.getTodos();
   todos.sort((a, b) => {
     return a.importance.localeCompare(b.importance);
-  });
-  showTodos();
-});
-
-const filterStatus = document.querySelector("#btn-filter-status");
-filterStatus.addEventListener("click", () => {
-  const todos = todoService.getTodos();
-  todos.sort((a, b) => {
-    return b.status.localeCompare(a.status);
   });
   showTodos();
 });
