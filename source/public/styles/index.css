@@ -58,7 +58,7 @@ body {
 
 @media screen and (max-width: 800px) {
     .todo {
-        width: 100%;
+        width: 95%;
     }
 }
 
@@ -194,8 +194,12 @@ body {
 }
 
 @media screen and (max-width: 800px) {
+    #todo-dialog {
+        width: 75%;
+    }
+
     #todo-form {
-        width: 100vw;
+        width: 100%;
     }
 }
 
