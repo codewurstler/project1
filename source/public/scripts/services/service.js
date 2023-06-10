@@ -20,6 +20,15 @@ class TodoService {
     this.todos[index] = todo;
     localStorage.setItem("todos", JSON.stringify(this.todos));
   }
+
+  deleteTodo(todo) {
+    const { id } = todo;
+    const todoIndex = this.todos.findIndex((t) => t.id === id);
+    if (todoIndex !== -1) {
+      this.todos.splice(todoIndex, 1);
+    }
+    localStorage.setItem("todos", JSON.stringify(this.todos));
+  }
 }
 
 export default new TodoService();

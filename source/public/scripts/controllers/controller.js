@@ -55,39 +55,13 @@ function showTodos() {
   showTodoList.innerHTML = "";
 
   todos.forEach((todo) => {
-    // CREATE TODO ITEM
     const todoItem = document.createElement("div");
     todoItem.classList.add("todo-list-item");
 
-    // CHECKING TODO IMPORTANCE
-    function todoImportance() {
-      if (todo.importance === "1") {
-        todoItem.classList.add("importance-1");
-      }
-      if (todo.importance === "2") {
-        todoItem.classList.add("importance-2");
-      }
-      if (todo.importance === "3") {
-        todoItem.classList.add("importance-3");
-      }
-      if (todo.importance === "4") {
-        todoItem.classList.add("importance-4");
-      }
-      if (todo.importance === "5") {
-        todoItem.classList.add("importance-5");
-      }
-      return "No importance selected";
-    }
-    todoImportance();
+    todoItem.classList.add(`importance-${todo.importance}`);
 
-    function todoStatus() {
-      if (todo.status === "done") {
-        todoItem.classList.add("status-done");
-      }
-    }
-    todoStatus();
+    todoItem.classList.add(`status-${todo.status}`);
 
-    // SET TODO ITEM INNER HTML
     todoItem.innerHTML = `
       <div class="todo-list-item-inner-1">
             <p>${todo.date}</p>
@@ -109,14 +83,12 @@ function showTodos() {
     showTodoList.appendChild(todoItem);
 
     const deleteBtn = todoItem.querySelector("#btn-list-item-delete");
+    const editBtn = todoItem.querySelector("#btn-list-item-edit");
 
-    // DELETE TODO
     deleteBtn.addEventListener("click", () => {
-      localStorage.setItem("todos", JSON.stringify(todos));
+      todoService.deleteTodo(todo);
       showTodos();
     });
-
-    const editBtn = todoItem.querySelector("#btn-list-item-edit");
 
     editBtn.addEventListener("click", () => {
       todoDialog.showModal();
