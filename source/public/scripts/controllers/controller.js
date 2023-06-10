@@ -1,10 +1,31 @@
 import todoService from "../services/service.js";
 
-document.querySelector("#btn-style").addEventListener("click", changeMode);
-function changeMode() {
-  const element = document.body;
-  element.classList.toggle("dark-mode");
+const darkModeBtn = document.querySelector("#btn-style");
+const bodyMode = document.body;
+let darkMode = localStorage.getItem("dark-mode");
+
+const enableDarkMode = () => {
+  bodyMode.classList.add("dark-mode");
+  localStorage.setItem("dark-mode", "enabled");
+};
+
+const disableDarkMode = () => {
+  bodyMode.classList.remove("dark-mode");
+  localStorage.setItem("dark-mode", "disabled");
+};
+
+if (darkMode === "enabled") {
+  enableDarkMode();
 }
+
+darkModeBtn.addEventListener("click", () => {
+  darkMode = localStorage.getItem("dark-mode");
+  if (darkMode === "disabled") {
+    enableDarkMode();
+  } else {
+    disableDarkMode();
+  }
+});
 
 const todoDialog = document.querySelector("#todo-dialog");
 const createTodoBtn = document.querySelector("#btn-create");
