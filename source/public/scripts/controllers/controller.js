@@ -143,6 +143,35 @@ todoForm.addEventListener("submit", (e) => {
 });
 showTodos();
 
+const todoList = document.querySelector(".todo-list");
+const openFilterBtn = document.querySelector("#btn-filter-done");
+let filterDone = localStorage.getItem("filter-done");
+
+const enableFilterDone = () => {
+  todoList.classList.add("filter-done");
+  openFilterBtn.classList.add("active");
+  localStorage.setItem("filter-done", "enabled");
+};
+
+const disableFilterDone = () => {
+  todoList.classList.remove("filter-done");
+  openFilterBtn.classList.remove("active");
+  localStorage.setItem("filter-done", "disabled");
+};
+
+if (filterDone === "enabled") {
+  enableFilterDone();
+}
+
+openFilterBtn.addEventListener("click", () => {
+  filterDone = localStorage.getItem("filter-done");
+  if (filterDone === "enabled") {
+    disableFilterDone();
+  } else {
+    enableFilterDone();
+  }
+});
+
 const filterName = document.querySelector("#btn-filter-name");
 filterName.addEventListener("click", () => {
   const todos = todoService.getTodos();
@@ -165,7 +194,7 @@ const filterImportance = document.querySelector("#btn-filter-importance");
 filterImportance.addEventListener("click", () => {
   const todos = todoService.getTodos();
   todos.sort((a, b) => {
-    return a.importance.localeCompare(b.importance);
+    return a.importance - b.importance;
   });
   showTodos();
 });

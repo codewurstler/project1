@@ -91,6 +91,10 @@ body {
     cursor: pointer;
 }
 
+.btn.active {
+    background: var(--dark-blue);
+}
+
 .btn.warning {
     background: var(--red);
     color: var(--white);
@@ -98,6 +102,10 @@ body {
 
 .btn.warning:hover {
     background: var(--dark-red);
+}
+
+.todo-list.filter-done .todo-list-item.status-open {
+    display: none;
 }
 
 .todo-list-item {
