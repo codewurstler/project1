@@ -11,6 +11,16 @@ const todoSubmitBtn = document.querySelector("#todo-submit");
 const todoUpdateBtn = document.querySelector("#todo-update");
 const todoCancelBtn = document.querySelector("#todo-cancel");
 const todoForm = document.querySelector("#todo-form");
+const todos = todoService.getTodos();
+
+/* TO SWITCH TO HANDLEBARS
+const templateSource = document.querySelector("#todo-item-template").innerHTML;
+const template = Handlebars.compile(templateSource);
+function renderTodos() {
+  document.querySelector(".todo-list-handle").innerHTML = template(todos);
+}
+renderTodos();
+*/
 
 createTodoBtn.addEventListener("click", () => {
   todoDialog.showModal();
@@ -46,7 +56,6 @@ const getItemFromForm = () => ({
 });
 
 function showTodos() {
-  const todos = todoService.getTodos();
   const showTodoList = document.querySelector(".todo-list");
 
   showTodoList.innerHTML = "";
