@@ -45,8 +45,27 @@ todoCancelBtn.addEventListener("click", () => {
   todoDialog.close();
 });
 
-// maybe not so good
 let currentTodo;
+
+function loadTodoToForm(todo) {
+  todoSubmitBtn.style.display = "none";
+  todoUpdateBtn.style.display = "inline-block";
+  document.querySelector("#title").value = todo.title;
+  document.querySelector("#description").value = todo.description;
+  document.querySelector("#date").value = todo.date;
+  document.querySelector("#importance").value = todo.importance;
+  document.querySelector("#status").value = todo.status;
+  currentTodo = todo;
+}
+
+const getItemFromForm = () => ({
+  id: currentTodo.id,
+  title: document.querySelector("#title").value,
+  description: document.querySelector("#description").value,
+  date: document.querySelector("#date").value,
+  importance: document.querySelector("#importance").value,
+  status: document.querySelector("#status").value,
+});
 
 function showTodos() {
   const todos = todoService.getTodos();
@@ -92,25 +111,10 @@ function showTodos() {
 
     editBtn.addEventListener("click", () => {
       todoDialog.showModal();
-      todoSubmitBtn.style.display = "none";
-      todoUpdateBtn.style.display = "inline-block";
-      document.querySelector("#title").value = todo.title;
-      document.querySelector("#description").value = todo.description;
-      document.querySelector("#date").value = todo.date;
-      document.querySelector("#importance").value = todo.importance;
-      document.querySelector("#status").value = todo.status;
-      currentTodo = todo;
+      loadTodoToForm(todo);
     });
   });
 
-  const getItemFromForm = () => ({
-    id: currentTodo.id,
-    title: document.querySelector("#title").value,
-    description: document.querySelector("#description").value,
-    date: document.querySelector("#date").value,
-    importance: document.querySelector("#importance").value,
-    status: document.querySelector("#status").value,
-  });
   function updateItems() {
     todoService.updateTodo(getItemFromForm());
     showTodos();
@@ -118,14 +122,13 @@ function showTodos() {
 
   todoUpdateBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    todoDialog.close();
     updateItems();
+    todoDialog.close();
   });
 }
 
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  todoDialog.close();
 
   const todoItem = {
     title: document.querySelector("#title").value,
@@ -138,7 +141,7 @@ todoForm.addEventListener("submit", (e) => {
   todoService.addTodo(todoItem);
 
   e.target.reset();
-
+  todoDialog.close();
   showTodos();
 });
 showTodos();
