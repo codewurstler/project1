@@ -5,6 +5,14 @@ class HttpService {
       ...(headers || {}),
       //wie weiter?
     });
+
+    return fetch(url, {
+      method: method,
+      headers: fetchHeaders,
+      body: JSON.stringify(data),
+    }).then((x) => {
+      return x.json();
+    });
   }
 }
 

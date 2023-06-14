@@ -13,11 +13,8 @@ export class TodoItem {
 
 export class TodoStore {
   constructor(db) {
-    const options =
-      process.env.DB_TYPE === "FILE"
-        ? { filename: "./data/todos.db", autoload: true }
-        : {};
-    this.db = db || new Datastore(options);
+    this.db =
+      db || new Datastore({ filename: "./data/todos.db", autoload: true });
   }
 
   async add(id, title, description, date, importance, status) {

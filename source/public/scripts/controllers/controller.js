@@ -1,5 +1,5 @@
 import todoService from "../services/service.js";
-import ModeController from "../../../controller/mode-controller.js";
+import ModeController from "./mode-controller.js";
 //import { todoController } from "../../../controller/todo-controller.js";
 
 //initialize dark mode
@@ -12,7 +12,9 @@ const todoSubmitBtn = document.querySelector("#todo-submit");
 const todoUpdateBtn = document.querySelector("#todo-update");
 const todoCancelBtn = document.querySelector("#todo-cancel");
 const todoForm = document.querySelector("#todo-form");
-const todos = todoService.getTodos();
+const todos = await todoService.getTodos();
+
+console.log(todos);
 
 /* TO SWITCH TO HANDLEBARS
 const templateSource = document.querySelector("#todo-item-template").innerHTML;
@@ -165,7 +167,6 @@ openFilterBtn.addEventListener("click", () => {
 
 const filterName = document.querySelector("#btn-filter-name");
 filterName.addEventListener("click", () => {
-  const todos = todoService.getTodos();
   todos.sort((a, b) => {
     return a.title.localeCompare(b.title);
   });
@@ -174,7 +175,6 @@ filterName.addEventListener("click", () => {
 
 const filterDate = document.querySelector("#btn-filter-duedate");
 filterDate.addEventListener("click", () => {
-  const todos = todoService.getTodos();
   todos.sort((a, b) => {
     return a.date.localeCompare(b.date);
   });
@@ -183,7 +183,6 @@ filterDate.addEventListener("click", () => {
 
 const filterImportance = document.querySelector("#btn-filter-importance");
 filterImportance.addEventListener("click", () => {
-  const todos = todoService.getTodos();
   todos.sort((a, b) => {
     return a.importance - b.importance;
   });
