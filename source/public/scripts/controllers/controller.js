@@ -1,5 +1,6 @@
 import todoService from "../services/service.js";
 import ModeController from "../../../controller/mode-controller.js";
+import { TodoController } from "../../../controller/todo-controller.js";
 
 //initialize dark mode
 const modeController = new ModeController();
