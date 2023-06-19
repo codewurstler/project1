@@ -34,7 +34,6 @@ export class TodoStore {
     return this.get(id);
   }
 
-  //neue funktion zum updaten. Korrekt?
   async update(id, title, description, date, importance, status) {
     await this.db.update(
       { _id: id },
@@ -45,7 +44,6 @@ export class TodoStore {
     return this.db.findOne({ _id: id });
   }
 
-  //braucht es noch eine return all function zum anzeigen der todos? Wenn ja in etwa so?
   async all(todos) {
     return this.db.find(todos);
   }

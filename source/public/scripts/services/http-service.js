@@ -3,11 +3,10 @@ class HttpService {
     const fetchHeaders = new Headers({
       "content-type": "application/json",
       ...(headers || {}),
-      //wie weiter?
     });
 
     return fetch(url, {
-      method: method,
+      method,
       headers: fetchHeaders,
       body: JSON.stringify(data),
     }).then((x) => {

@@ -14,9 +14,7 @@ const todoCancelBtn = document.querySelector("#todo-cancel");
 const todoForm = document.querySelector("#todo-form");
 const todos = await todoService.getTodos();
 
-console.log(todos);
-
-/* TO SWITCH TO HANDLEBARS
+/*
 const templateSource = document.querySelector("#todo-item-template").innerHTML;
 const template = Handlebars.compile(templateSource);
 function renderTodos() {
@@ -24,7 +22,6 @@ function renderTodos() {
 }
 renderTodos();
 */
-
 createTodoBtn.addEventListener("click", () => {
   todoDialog.showModal();
   todoForm.reset();
@@ -95,8 +92,10 @@ function showTodos() {
     const editBtn = todoItem.querySelector("#btn-list-item-edit");
 
     deleteBtn.addEventListener("click", () => {
-      todoService.deleteTodo(todo);
-      showTodos();
+      if (confirm("Are you sure you want to delete this todo?") === true) {
+        todoService.deleteTodo(todo);
+        showTodos();
+      }
     });
 
     editBtn.addEventListener("click", () => {
@@ -106,6 +105,7 @@ function showTodos() {
   });
 
   function updateItems() {
+    console.log("edit...", getItemFromForm());
     todoService.updateTodo(getItemFromForm());
     showTodos();
   }
@@ -116,6 +116,7 @@ function showTodos() {
     todoDialog.close();
   });
 }
+showTodos();
 
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -165,26 +166,43 @@ openFilterBtn.addEventListener("click", () => {
   }
 });
 
-const filterName = document.querySelector("#btn-filter-name");
-filterName.addEventListener("click", () => {
-  todos.sort((a, b) => {
-    return a.title.localeCompare(b.title);
-  });
+const filterForm = document.querySelector("#filter-form");
+let filterStatus = localStorage.getItem("filter-status");
+const filterSubmit = document.querySelector("#filter-submit");
+const filterCancel = document.querySelector("#filter-cancel");
+
+function initFilterStatus() {
+  document.querySelector("#filter").value = filterStatus;
+  localStorage.setItem("filter-status", filterStatus);
+}
+initFilterStatus();
+
+function runFilters() {
+  if (filterStatus === "name") {
+    todos.sort((a, b) => {
+      return a.title.localeCompare(b.title);
+    });
+  } else if (filterStatus === "duedate") {
+    todos.sort((a, b) => {
+      return a.date.localeCompare(b.date);
+    });
+  } else if (filterStatus === "importance") {
+    todos.sort((a, b) => {
+      return b.importance - a.importance;
+    });
+  }
   showTodos();
+}
+
+filterForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const filterStatusValue = document.querySelector("#filter").value;
+  localStorage.setItem("filter-status", filterStatusValue);
+  runFilters();
 });
 
-const filterDate = document.querySelector("#btn-filter-duedate");
-filterDate.addEventListener("click", () => {
-  todos.sort((a, b) => {
-    return a.date.localeCompare(b.date);
-  });
-  showTodos();
+filterCancel.addEventListener("click", () => {
+  localStorage.setItem("filter-status", null);
 });
 
-const filterImportance = document.querySelector("#btn-filter-importance");
-filterImportance.addEventListener("click", () => {
-  todos.sort((a, b) => {
-    return a.importance - b.importance;
-  });
-  showTodos();
-});
+runFilters();

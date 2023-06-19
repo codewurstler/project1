@@ -67,12 +67,20 @@
         <button id="btn-create" class="btn">Create new ToDo</button>
         <button id="btn-style" class="btn">Toggle Style</button>
       </div>
-      <div class="todo-buttons filters">
-        <div class="todo-buttons-group">
-          <button id="btn-filter-name" class="btn filter-btn">By Name</button>
-          <button id="btn-filter-duedate" class="btn filter-btn">By Due Date</button>
-          <button id="btn-filter-importance" class="btn filter-btn">By Importance</button>
-        </div>
+      <div class="todo-filters">
+        <form id="filter-form" method="post">
+          <div class="form-group">
+            <select id="filter" name="filter">
+              <option value=null selected="selected">Filter by</option>
+              <option value="name">Name</option>
+              <option value="duedate">Due Date</option>
+              <option value="importance">Importance</option>
+            </select>
+            <input type="submit" id="filter-submit" class="btn" value="Filter">
+            <input type="reset" id="filter-cancel" class="btn warning"  value="Remove filter">
+          </div>
+        </form>
+
         <div class="todo-buttons-group">
           <button id="btn-filter-done" class="btn">Show Done</button>
         </div>
@@ -86,8 +94,9 @@
 </div>
 
 <script type="text/x-handlebars-template" id="todo-item-template">
+  {{#if this}}
   {{#each this}}
-  <div class="todo-list-item importance-{{importance}} status-{{status}}">
+  <div class="todo-list-item importance-{{importance}} status-{{status}} data-todo="{{ _id }}">
   <div class="todo-list-item-inner-1">
     <p>{{date}}</p>
     <p>{{status}}</p>
@@ -105,6 +114,9 @@
   </div>
   </div>
   {{/each}}
+    {{else}}
+    <p>There are no Todos!</p>
+  {{/if}}
 </script>
   </div>
 </script>

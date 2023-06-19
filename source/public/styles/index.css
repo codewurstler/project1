@@ -69,8 +69,17 @@ body {
     justify-content: space-between;
 }
 
-.todo-buttons.filters {
+.todo-filters {
+    display: flex;
+    justify-content: space-between;
     margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 800px) {
+    .todo-filters {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 
 .btn {
