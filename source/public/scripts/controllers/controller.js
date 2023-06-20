@@ -2,9 +2,7 @@ import todoService from "../services/service.js";
 import ModeController from "./mode-controller.js";
 //import { todoController } from "../../../controller/todo-controller.js";
 
-// WHYYYYY NOT WORKING?????
-const modeController = new ModeController();
-modeController.init();
+new ModeController().init();
 
 const todoDialog = document.querySelector("#todo-dialog");
 const createTodoBtn = document.querySelector("#btn-create");
@@ -12,6 +10,7 @@ const todoSubmitBtn = document.querySelector("#todo-submit");
 const todoUpdateBtn = document.querySelector("#todo-update");
 const todoCancelBtn = document.querySelector("#todo-cancel");
 const todoForm = document.querySelector("#todo-form");
+
 const todos = await todoService.getTodos();
 
 /*
@@ -45,15 +44,6 @@ function loadTodoToForm(todo) {
   document.querySelector("#status").value = todo.status;
   currentTodo = todo;
 }
-
-const getItemFromForm = () => ({
-  id: currentTodo.id,
-  title: document.querySelector("#title").value,
-  description: document.querySelector("#description").value,
-  date: document.querySelector("#date").value,
-  importance: document.querySelector("#importance").value,
-  status: document.querySelector("#status").value,
-});
 
 function showTodos() {
   const showTodoList = document.querySelector(".todo-list");
@@ -103,18 +93,28 @@ function showTodos() {
       loadTodoToForm(todo);
     });
   });
-
-  function updateItems() {
-    showTodos();
-  }
-
-  todoUpdateBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    updateItems();
-    todoDialog.close();
-  });
 }
 showTodos();
+
+const getItemFromForm = () => ({
+  id: currentTodo.id,
+  title: document.querySelector("#title").value,
+  description: document.querySelector("#description").value,
+  date: document.querySelector("#date").value,
+  importance: document.querySelector("#importance").value,
+  status: document.querySelector("#status").value,
+});
+
+function updateItems() {
+  todoService.updateTodo(getItemFromForm());
+  showTodos();
+}
+
+todoUpdateBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  updateItems();
+  todoDialog.close();
+});
 
 todoForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -133,7 +133,6 @@ todoForm.addEventListener("submit", (e) => {
   todoDialog.close();
   showTodos();
 });
-showTodos();
 
 const todoList = document.querySelector(".todo-list");
 const openFilterBtn = document.querySelector("#btn-filter-done");
