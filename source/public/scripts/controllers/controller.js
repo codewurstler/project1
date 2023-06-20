@@ -16,8 +16,7 @@ let filterDone = localStorage.getItem("filter-done");
 
 // Filters
 const filterForm = document.querySelector("#filter-form");
-const filterStatus = localStorage.getItem("filter-status");
-const filterSubmit = document.querySelector("#filter-submit");
+let filterStatus = localStorage.getItem("filter-status");
 const filterCancel = document.querySelector("#filter-cancel");
 
 // Get the todos from the server
@@ -170,9 +169,19 @@ openFilterBtn.addEventListener("click", () => {
 });
 
 // Filters
+
 function initFilterStatus() {
+  if (filterStatus === null) {
+    filterStatus = "disabled";
+  }
   document.querySelector("#filter").value = filterStatus;
   localStorage.setItem("filter-status", filterStatus);
+
+  if (filterStatus === "disabled") {
+    filterForm.classList.add("filter-disabled");
+  } else {
+    filterForm.classList.remove("filter-disabled");
+  }
 }
 initFilterStatus();
 
@@ -191,11 +200,13 @@ filterForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const filterStatusValue = document.querySelector("#filter").value;
   localStorage.setItem("filter-status", filterStatusValue);
+  filterForm.classList.remove("filter-disabled");
   runFilters();
 });
 
 filterCancel.addEventListener("click", () => {
-  localStorage.setItem("filter-status", null);
+  localStorage.setItem("filter-status", "disabled");
+  filterForm.classList.add("filter-disabled");
+  showTodos();
 });
-
 runFilters();
