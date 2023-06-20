@@ -6,10 +6,13 @@ class ModeController {
   }
 
   setMode() {
-    if (this.darkMode === null) {
-      localStorage.setItem("dark-mode", "disabled");
+    if (this.darkMode === "enabled") {
+      this.disableDarkMode();
+    } else {
+      this.enableDarkMode();
     }
   }
+
   enableDarkMode() {
     this.bodyMode.classList.add("dark-mode");
     localStorage.setItem("dark-mode", "enabled");
@@ -21,14 +24,14 @@ class ModeController {
   }
 
   init() {
-    this.setMode();
+    if (this.darkMode === "enabled") {
+      this.enableDarkMode();
+    } else {
+      localStorage.setItem("dark-mode", "disabled");
+    }
+
     this.darkModeBtn.addEventListener("click", () => {
-      this.darkMode = localStorage.getItem("dark-mode");
-      if (this.darkMode === "disabled") {
-        this.enableDarkMode();
-      } else {
-        this.disableDarkMode();
-      }
+      this.setMode();
     });
   }
 }

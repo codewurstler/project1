@@ -2,7 +2,7 @@ import todoService from "../services/service.js";
 import ModeController from "./mode-controller.js";
 //import { todoController } from "../../../controller/todo-controller.js";
 
-//initialize dark mode
+// WHYYYYY NOT WORKING?????
 const modeController = new ModeController();
 modeController.init();
 
@@ -105,8 +105,6 @@ function showTodos() {
   });
 
   function updateItems() {
-    console.log("edit...", getItemFromForm());
-    todoService.updateTodo(getItemFromForm());
     showTodos();
   }
 
