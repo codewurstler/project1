@@ -1,9 +1,7 @@
 import todoService from "../services/service.js";
 import ModeController from "./mode-controller.js";
-//import { todoController } from "../../../controller/todo-controller.js";
 
-new ModeController().init();
-
+// Dialog
 const todoDialog = document.querySelector("#todo-dialog");
 const createTodoBtn = document.querySelector("#btn-create");
 const todoSubmitBtn = document.querySelector("#todo-submit");
@@ -11,29 +9,26 @@ const todoUpdateBtn = document.querySelector("#todo-update");
 const todoCancelBtn = document.querySelector("#todo-cancel");
 const todoForm = document.querySelector("#todo-form");
 
+// Show done
+const todoList = document.querySelector(".todo-list");
+const openFilterBtn = document.querySelector("#btn-filter-done");
+let filterDone = localStorage.getItem("filter-done");
+
+// Filters
+const filterForm = document.querySelector("#filter-form");
+const filterStatus = localStorage.getItem("filter-status");
+const filterSubmit = document.querySelector("#filter-submit");
+const filterCancel = document.querySelector("#filter-cancel");
+
+// Get the todos from the server
 const todos = await todoService.getTodos();
 
-/*
-const templateSource = document.querySelector("#todo-item-template").innerHTML;
-const template = Handlebars.compile(templateSource);
-function renderTodos() {
-  document.querySelector(".todo-list-handle").innerHTML = template(todos);
-}
-renderTodos();
-*/
-createTodoBtn.addEventListener("click", () => {
-  todoDialog.showModal();
-  todoForm.reset();
-  todoUpdateBtn.style.display = "none";
-  todoSubmitBtn.style.display = "inline-block";
-});
+// Init dark mode
+new ModeController().init();
 
-todoCancelBtn.addEventListener("click", () => {
-  todoDialog.close();
-});
+// Render todos
 
-let currentTodo;
-
+// Gets the values in the loop for updating
 function loadTodoToForm(todo) {
   todoSubmitBtn.style.display = "none";
   todoUpdateBtn.style.display = "inline-block";
@@ -43,7 +38,6 @@ function loadTodoToForm(todo) {
   document.querySelector("#date").value = todo.date;
   document.querySelector("#importance").value = todo.importance;
   document.querySelector("#status").value = todo.status;
-  currentTodo = todo;
 }
 
 function showTodos() {
@@ -97,23 +91,15 @@ function showTodos() {
 }
 showTodos();
 
-const getItemFromForm = () => ({
-  id: document.querySelector("#id").value,
-  title: document.querySelector("#title").value,
-  description: document.querySelector("#description").value,
-  date: document.querySelector("#date").value,
-  importance: document.querySelector("#importance").value,
-  status: document.querySelector("#status").value,
+// Create todo
+createTodoBtn.addEventListener("click", () => {
+  todoDialog.showModal();
+  todoForm.reset();
+  todoUpdateBtn.style.display = "none";
+  todoSubmitBtn.style.display = "inline-block";
 });
 
-function updateItems() {
-  todoService.updateTodo(getItemFromForm());
-  showTodos();
-}
-
-todoUpdateBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  updateItems();
+todoCancelBtn.addEventListener("click", () => {
   todoDialog.close();
 });
 
@@ -135,10 +121,29 @@ todoForm.addEventListener("submit", (e) => {
   showTodos();
 });
 
-const todoList = document.querySelector(".todo-list");
-const openFilterBtn = document.querySelector("#btn-filter-done");
-let filterDone = localStorage.getItem("filter-done");
+// Update todo
 
+const getItemFromForm = () => ({
+  id: document.querySelector("#id").value,
+  title: document.querySelector("#title").value,
+  description: document.querySelector("#description").value,
+  date: document.querySelector("#date").value,
+  importance: document.querySelector("#importance").value,
+  status: document.querySelector("#status").value,
+});
+
+function updateItems() {
+  todoService.updateTodo(getItemFromForm());
+  showTodos();
+}
+
+todoUpdateBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  updateItems();
+  todoDialog.close();
+});
+
+// Show done
 const enableFilterDone = () => {
   todoList.classList.add("filter-done");
   openFilterBtn.classList.add("active");
@@ -164,11 +169,7 @@ openFilterBtn.addEventListener("click", () => {
   }
 });
 
-const filterForm = document.querySelector("#filter-form");
-let filterStatus = localStorage.getItem("filter-status");
-const filterSubmit = document.querySelector("#filter-submit");
-const filterCancel = document.querySelector("#filter-cancel");
-
+// Filters
 function initFilterStatus() {
   document.querySelector("#filter").value = filterStatus;
   localStorage.setItem("filter-status", filterStatus);
@@ -177,17 +178,11 @@ initFilterStatus();
 
 function runFilters() {
   if (filterStatus === "name") {
-    todos.sort((a, b) => {
-      return a.title.localeCompare(b.title);
-    });
+    todos.sort((a, b) => a.title.localeCompare(b.title));
   } else if (filterStatus === "duedate") {
-    todos.sort((a, b) => {
-      return a.date.localeCompare(b.date);
-    });
+    todos.sort((a, b) => a.date.localeCompare(b.date));
   } else if (filterStatus === "importance") {
-    todos.sort((a, b) => {
-      return b.importance - a.importance;
-    });
+    todos.sort((a, b) => b.importance - a.importance);
   }
   showTodos();
 }

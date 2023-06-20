@@ -16,12 +16,14 @@
     "indent": "off",
     "no-plusplus": "off",
     "import/extensions": "off",
-    "object-curly-newline": "warn",
     "object-curly-spacing": "warn",
     "prefer-const": "warn",
-    "linebreak-style": "off"
-  },
-  "globals": {
-    "Handlebars": true
+    "linebreak-style": "off",
+    "no-underscore-dangle": "off",
+    "import/prefer-default-export": "off",
+    "class-methods-use-this": "off",
+    "max-classes-per-file": "off",
+
+    "no-console": "off"
   }
 }

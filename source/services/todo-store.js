@@ -40,6 +40,7 @@ export class TodoStore {
       { $set: { title, description, date, importance, status } }
     );
   }
+
   async get(id) {
     return this.db.findOne({ _id: id });
   }

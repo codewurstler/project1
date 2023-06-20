@@ -9,9 +9,7 @@ class HttpService {
       method,
       headers: fetchHeaders,
       body: JSON.stringify(data),
-    }).then((x) => {
-      return x.json();
-    });
+    }).then((x) => x.json());
   }
 }
 

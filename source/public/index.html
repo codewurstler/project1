@@ -5,7 +5,6 @@
   <title>Project 1</title>
   <link rel="stylesheet" type="text/css" href="styles/index.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
   <script src="scripts/controllers/controller.js" type="module"></script>
 </head>
 <body>
@@ -17,7 +16,7 @@
 
   <dialog id="todo-dialog">
     <form id="todo-form">
-      <input type="text" id="id">
+      <input type="hidden" id="id">
       <div class="form-group">
         <label for="title">Title</label>
         <input type="text" id="title" placeholder="Add a title" required>
@@ -91,36 +90,6 @@
       <div class="todo-list-handle"></div>
     </div>
   </div>
-
 </div>
-
-<script type="text/x-handlebars-template" id="todo-item-template">
-  {{#if this}}
-  {{#each this}}
-  <div class="todo-list-item importance-{{importance}} status-{{status}} data-todo="{{ _id }}">
-  <div class="todo-list-item-inner-1">
-    <p>{{date}}</p>
-    <p>{{status}}</p>
-  </div>
-  <div class="todo-list-item-inner-2">
-    <p>{{title}}</p>
-    <p>{{description}}</p>
-  </div>
-  <div class="todo-list-item-inner-3">
-    <div class="todo-list-item-inner-status"></div>
-  </div>
-  <div class="todo-list-item-inner-4">
-    <button id="btn-list-item-edit" class="btn">Edit</button>
-    <button id="btn-list-item-delete" class="btn warning">Delete</button>
-  </div>
-  </div>
-  {{/each}}
-    {{else}}
-    <p>There are no Todos!</p>
-  {{/if}}
-</script>
-  </div>
-</script>
-
 </body>
 </html>
