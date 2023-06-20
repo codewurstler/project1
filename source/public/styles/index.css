@@ -9,13 +9,14 @@ VARIABLES
     --dark-green: #3e8c8b;
     --red: #ff6961;
     --dark-red: #ba4a44;
-    --box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    --box-shadow: rgb(17 12 46 / 15%) 0 48px 100px 0;
     --border-radius: 4px;
 }
 
 .dark-mode {
     --bg: #303030;
     --bg-light: #303030;
+
     color: var(--white);
 }
 
@@ -23,7 +24,7 @@ body {
     background: var(--bg);
     height: 100%;
     margin: 0;
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: Poppins, Arial, sans-serif;
     font-size: 16px;
 }
 
@@ -117,7 +118,7 @@ body {
 
 .todo-list-item {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr;
+    grid-template-columns: 1fr minmax(0, 2fr) 1fr 1fr;
     border-radius: var(--border-radius);
     border: 1px solid var(--green);
     padding: 1rem;
@@ -137,15 +138,19 @@ body {
     box-shadow: var(--box-shadow);
 }
 
+.todo-list-item-inner-2 {
+    overflow-wrap: break-word;
+}
+
+.todo-list-item-inner-3 {
+    text-align: right;
+}
+
 .todo-list-item-inner-4 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: end;
-}
-
-.todo-list-item-inner-3 {
-    text-align: right;
 }
 
 .btn#btn-list-item-delete {
@@ -243,11 +248,12 @@ select {
     border-radius: var(--border-radius);
     padding: 0.5rem;
     font-size: 16px;
+    background: var(--white);
 }
 
 input[type="text"]:focus,
 input[type="date"]:focus,
 textarea:focus,
-select:focus{
+select:focus {
     outline: 2px solid var(--green);
 }
