@@ -10,7 +10,7 @@ class TodoService {
   }
 
   async updateTodo(todo) {
-    return httpService.ajax("PUT", "/todos/", todo);
+    return httpService.ajax("PUT", `/todos/${todo._id}`, todo);
   }
 
   async deleteTodo(todo) {

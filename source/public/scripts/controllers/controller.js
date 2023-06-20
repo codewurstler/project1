@@ -37,6 +37,7 @@ let currentTodo;
 function loadTodoToForm(todo) {
   todoSubmitBtn.style.display = "none";
   todoUpdateBtn.style.display = "inline-block";
+  document.querySelector("#id").value = todo._id;
   document.querySelector("#title").value = todo.title;
   document.querySelector("#description").value = todo.description;
   document.querySelector("#date").value = todo.date;
@@ -97,7 +98,7 @@ function showTodos() {
 showTodos();
 
 const getItemFromForm = () => ({
-  id: currentTodo.id,
+  id: document.querySelector("#id").value,
   title: document.querySelector("#title").value,
   description: document.querySelector("#description").value,
   date: document.querySelector("#date").value,
