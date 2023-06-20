@@ -16,6 +16,7 @@ let filterDone = localStorage.getItem("filter-done");
 
 // Filters
 const filterForm = document.querySelector("#filter-form");
+const filterFormInput = document.querySelector("#filter");
 let filterStatus = localStorage.getItem("filter-status");
 const filterCancel = document.querySelector("#filter-cancel");
 
@@ -174,7 +175,7 @@ function initFilterStatus() {
   if (filterStatus === null) {
     filterStatus = "disabled";
   }
-  document.querySelector("#filter").value = filterStatus;
+  filterFormInput.value = filterStatus;
   localStorage.setItem("filter-status", filterStatus);
 
   if (filterStatus === "disabled") {
@@ -207,6 +208,7 @@ filterForm.addEventListener("submit", (e) => {
 filterCancel.addEventListener("click", () => {
   localStorage.setItem("filter-status", "disabled");
   filterForm.classList.add("filter-disabled");
+  filterFormInput.value = null;
   showTodos();
 });
 runFilters();
