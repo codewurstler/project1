@@ -11,6 +11,7 @@ class ModeController {
     } else {
       this.enableDarkMode();
     }
+    this.darkMode = localStorage.getItem("dark-mode");
   }
 
   enableDarkMode() {
