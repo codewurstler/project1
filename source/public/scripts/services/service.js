@@ -14,7 +14,7 @@ class TodoService {
   }
 
   async deleteTodo(todo) {
-    return httpService.ajax("DELETE", `/todos/${todo._id}`, undefined);
+    return httpService.ajax("DELETE", `/todos/${todo}`, undefined);
   }
 }
 

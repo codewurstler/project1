@@ -26,6 +26,13 @@ const todos = await todoService.getTodos();
 // Init dark mode
 new ModeController().init();
 
+const templateSource = document.querySelector("#todo-item-template").innerHTML;
+const template = Handlebars.compile(templateSource);
+function renderTodos() {
+  document.querySelector(".todo-list").innerHTML = template(todos);
+}
+renderTodos();
+
 // Render todos
 
 // Gets the values in the loop for updating
@@ -40,56 +47,23 @@ function loadTodoToForm(todo) {
   document.querySelector("#status").value = todo.status;
 }
 
-function showTodos() {
-  const showTodoList = document.querySelector(".todo-list");
+const editBtn = document.querySelector("#btn-list-item-edit");
 
-  showTodoList.innerHTML = "";
+editBtn.addEventListener("click", () => {
+  todoDialog.showModal();
+  //loadTodoToForm(todo);
+});
 
-  todos.forEach((todo) => {
-    const todoItem = document.createElement("div");
-    todoItem.classList.add("todo-list-item");
-
-    todoItem.classList.add(`importance-${todo.importance}`);
-
-    todoItem.classList.add(`status-${todo.status}`);
-
-    todoItem.innerHTML = `
-      <div class="todo-list-item-inner-1">
-            <p>${todo.date}</p>
-            <p>${todo.status}</p>
-      </div>
-          <div class="todo-list-item-inner-2">
-            <p>${todo.title}</p>
-            <p>${todo.description}</p>
-          </div>
-          <div class="todo-list-item-inner-3">
-            <div class="todo-list-item-inner-status"></div>
-          </div>
-          <div class="todo-list-item-inner-4">
-            <button id="btn-list-item-edit" class="btn">Edit</button>
-            <button id="btn-list-item-delete" class="btn warning">Delete</button>
-          </div>
-  `;
-
-    showTodoList.appendChild(todoItem);
-
-    const deleteBtn = todoItem.querySelector("#btn-list-item-delete");
-    const editBtn = todoItem.querySelector("#btn-list-item-edit");
-
-    deleteBtn.addEventListener("click", () => {
-      if (confirm("Are you sure you want to delete this todo?") === true) {
-        todoService.deleteTodo(todo);
-        showTodos();
-      }
-    });
-
-    editBtn.addEventListener("click", () => {
-      todoDialog.showModal();
-      loadTodoToForm(todo);
-    });
-  });
+function deleteNote(event) {
+  event.preventDefault();
+  if (window.confirm("Are you sure you want to delete this todo?")) {
+    const todo = event.target.closest(".todo-list-item").dataset.id;
+    todoService.deleteTodo(todo);
+  }
 }
-showTodos();
+document
+  .querySelectorAll(".btn-list-item-delete")
+  .forEach((todo) => todo.addEventListener("click", (e) => deleteNote(e)));
 
 // Create todo
 createTodoBtn.addEventListener("click", () => {
@@ -118,7 +92,7 @@ todoForm.addEventListener("submit", (e) => {
 
   e.target.reset();
   todoDialog.close();
-  showTodos();
+  renderTodos();
 });
 
 // Update todo
