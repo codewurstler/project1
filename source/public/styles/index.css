@@ -101,6 +101,7 @@ body {
 
 .btn.active {
     background: var(--dark-green);
+    box-shadow: 0 0 0 2px var(--green);
 }
 
 .btn.warning {
@@ -110,6 +111,16 @@ body {
 
 .btn.warning:hover {
     background: var(--dark-red);
+}
+
+.btn.active.active-asc::after {
+    margin-left: 0.5rem;
+    content: "\25B2";
+}
+
+.btn.active.active-desc::after {
+    margin-left: 0.5rem;
+    content: "\25BC";
 }
 
 #todos.filter-done .todo-list-item.status-open {

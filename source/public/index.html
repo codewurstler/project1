@@ -69,20 +69,13 @@
         <button id="btn-style" class="btn">Toggle Style</button>
       </div>
       <div class="todo-filters">
-        <form id="filter-form" method="post">
-          <div class="form-group">
-            <label for="filter">Filter by:</label>
-            <select id="filter" name="filter" required>
-              <option value="name">Name</option>
-              <option value="duedate">Due Date</option>
-              <option value="importance">Importance</option>
-            </select>
-            <input type="submit" id="filter-submit" class="btn" value="Filter">
-            <input type="button" id="filter-cancel" class="btn warning" value="Reset filter">
-          </div>
-        </form>
+        <div class="todo-filters-buttons">
+          <button type="button" class="btn btn-filter" data-sort="date">By duedate</button>
+          <button type="button" class="btn btn-filter" data-sort="title">By name</button>
+          <button type="button" class="btn btn-filter" data-sort="importance">By importance</button>
+        </div>
 
-        <div class="todo-buttons-group">
+        <div class="todo-filters-buttons">
           <button id="btn-filter-done" class="btn">Show Done</button>
         </div>
       </div>
