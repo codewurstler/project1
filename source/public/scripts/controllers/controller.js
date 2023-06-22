@@ -21,16 +21,13 @@ const openFilterBtn = document.querySelector("#btn-filter-done");
 let filterDone = localStorage.getItem("filter-done");
 
 // Filters
-const filterForm = document.querySelector("#filter-form");
-const filterFormInput = document.querySelector("#filter");
-let filterStatus = localStorage.getItem("filter-status");
-const filterCancel = document.querySelector("#filter-cancel");
 const filterButtons = document.querySelectorAll(".btn-filter");
 
 // Init dark mode
 new ModeController().init();
 
 const templateSource = document.querySelector("#todo-item-template").innerHTML;
+// eslint-disable-next-line no-undef
 const template = Handlebars.compile(templateSource);
 
 function loadTodoToForm(todo) {
@@ -87,6 +84,15 @@ async function renderTodos() {
       });
     });
 }
+
+const getItemFromForm = () => ({
+  id: document.querySelector("#id").value,
+  title: document.querySelector("#title").value,
+  description: document.querySelector("#description").value,
+  date: document.querySelector("#date").value,
+  importance: document.querySelector("#importance").value,
+  status: document.querySelector("#status").value,
+});
 function updateItems() {
   todoService.updateTodo(getItemFromForm());
   renderTodos();
@@ -124,15 +130,6 @@ todoUpdateBtn.addEventListener("click", (e) => {
   e.preventDefault();
   updateItems();
   todoDialog.close();
-});
-
-const getItemFromForm = () => ({
-  id: document.querySelector("#id").value,
-  title: document.querySelector("#title").value,
-  description: document.querySelector("#description").value,
-  date: document.querySelector("#date").value,
-  importance: document.querySelector("#importance").value,
-  status: document.querySelector("#status").value,
 });
 
 // Show done

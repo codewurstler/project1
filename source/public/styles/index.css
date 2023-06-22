@@ -83,6 +83,11 @@ body {
     }
 }
 
+#btn-filter-done.active::after {
+    margin-left: 0.5rem;
+    content: "\2713";
+}
+
 .btn {
     background: var(--green);
     color: var(--white);
@@ -267,8 +272,4 @@ input[type="date"]:focus,
 textarea:focus,
 select:focus {
     outline: 2px solid var(--green);
-}
-
-#filter-form.filter-disabled #filter-cancel {
-    display: none;
 }
