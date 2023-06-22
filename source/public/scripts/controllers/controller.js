@@ -1,6 +1,10 @@
 import todoService from "../services/service.js";
 import ModeController from "./mode-controller.js";
 
+const todosContainer = document.querySelector("#todos");
+
+let todos;
+
 // Dialog
 const todoDialog = document.querySelector("#todo-dialog");
 const createTodoBtn = document.querySelector("#btn-create");
@@ -10,7 +14,6 @@ const todoCancelBtn = document.querySelector("#todo-cancel");
 const todoForm = document.querySelector("#todo-form");
 
 // Show done
-const todoList = document.querySelector(".todo-list");
 const openFilterBtn = document.querySelector("#btn-filter-done");
 let filterDone = localStorage.getItem("filter-done");
 
@@ -20,22 +23,12 @@ const filterFormInput = document.querySelector("#filter");
 let filterStatus = localStorage.getItem("filter-status");
 const filterCancel = document.querySelector("#filter-cancel");
 
-// Get the todos from the server
-const todos = await todoService.getTodos();
-
 // Init dark mode
 new ModeController().init();
 
 const templateSource = document.querySelector("#todo-item-template").innerHTML;
 const template = Handlebars.compile(templateSource);
-function renderTodos() {
-  document.querySelector(".todo-list").innerHTML = template(todos);
-}
-renderTodos();
 
-// Render todos
-
-// Gets the values in the loop for updating
 function loadTodoToForm(todo) {
   todoSubmitBtn.style.display = "none";
   todoUpdateBtn.style.display = "inline-block";
@@ -47,25 +40,35 @@ function loadTodoToForm(todo) {
   document.querySelector("#status").value = todo.status;
 }
 
-const editBtn = document.querySelector("#btn-list-item-edit");
+async function renderTodos() {
+  // Get the todos from the server
+  todos = await todoService.getTodos();
+  todosContainer.innerHTML = template(todos);
 
-editBtn.addEventListener("click", () => {
-  todoDialog.showModal();
-  //loadTodoToForm(todo);
-});
+  document.querySelectorAll(".btn-list-item-edit").forEach((todoEditButton) => {
+    todoEditButton.addEventListener("click", (e) => {
+      const editId = e.target.closest(".todo-list-item").dataset.id;
+      const editTodo = todos.find((todo) => todo._id === editId);
+      loadTodoToForm(editTodo);
+      todoDialog.showModal();
+    });
+  });
 
-function deleteNote(event) {
-  event.preventDefault();
-  if (window.confirm("Are you sure you want to delete this todo?")) {
-    const todo = event.target.closest(".todo-list-item").dataset.id;
-    todoService.deleteTodo(todo);
-  }
+  document
+    .querySelectorAll(".btn-list-item-delete")
+    .forEach((todoDeleteButton) => {
+      todoDeleteButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (window.confirm("Are you sure you want to delete this todo?")) {
+          const todo = e.target.closest(".todo-list-item").dataset.id;
+          todoService.deleteTodo(todo);
+        }
+        renderTodos();
+      });
+    });
 }
-document
-  .querySelectorAll(".btn-list-item-delete")
-  .forEach((todo) => todo.addEventListener("click", (e) => deleteNote(e)));
+renderTodos();
 
-// Create todo
 createTodoBtn.addEventListener("click", () => {
   todoDialog.showModal();
   todoForm.reset();
@@ -108,7 +111,7 @@ const getItemFromForm = () => ({
 
 function updateItems() {
   todoService.updateTodo(getItemFromForm());
-  showTodos();
+  renderTodos();
 }
 
 todoUpdateBtn.addEventListener("click", (e) => {
@@ -119,13 +122,13 @@ todoUpdateBtn.addEventListener("click", (e) => {
 
 // Show done
 const enableFilterDone = () => {
-  todoList.classList.add("filter-done");
+  todosContainer.classList.add("filter-done");
   openFilterBtn.classList.add("active");
   localStorage.setItem("filter-done", "enabled");
 };
 
 const disableFilterDone = () => {
-  todoList.classList.remove("filter-done");
+  todosContainer.classList.remove("filter-done");
   openFilterBtn.classList.remove("active");
   localStorage.setItem("filter-done", "disabled");
 };
@@ -144,7 +147,6 @@ openFilterBtn.addEventListener("click", () => {
 });
 
 // Filters
-
 function initFilterStatus() {
   if (filterStatus === null) {
     filterStatus = "disabled";
@@ -168,7 +170,7 @@ function runFilters() {
   } else if (filterStatus === "importance") {
     todos.sort((a, b) => b.importance - a.importance);
   }
-  showTodos();
+  renderTodos();
 }
 
 filterForm.addEventListener("submit", (e) => {
@@ -183,6 +185,6 @@ filterCancel.addEventListener("click", () => {
   localStorage.setItem("filter-status", "disabled");
   filterForm.classList.add("filter-disabled");
   filterFormInput.value = null;
-  showTodos();
+  renderTodos();
 });
 runFilters();
