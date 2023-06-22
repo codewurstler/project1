@@ -83,9 +83,15 @@ body {
     }
 }
 
+#btn-create::before {
+    margin-right: 0.5rem;
+    content: "\271A";
+}
+
 #btn-filter-done.active::after {
     margin-left: 0.5rem;
-    content: "\2713";
+    font-size: 13px;
+    content: "\2731";
 }
 
 .btn {
