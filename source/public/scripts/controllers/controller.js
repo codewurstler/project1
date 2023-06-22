@@ -87,6 +87,10 @@ async function renderTodos() {
       });
     });
 }
+function updateItems() {
+  todoService.updateTodo(getItemFromForm());
+  renderTodos();
+}
 
 createTodoBtn.addEventListener("click", () => {
   todoDialog.showModal();
@@ -121,11 +125,6 @@ todoUpdateBtn.addEventListener("click", (e) => {
   updateItems();
   todoDialog.close();
 });
-
-function updateItems() {
-  todoService.updateTodo(getItemFromForm());
-  renderTodos();
-}
 
 const getItemFromForm = () => ({
   id: document.querySelector("#id").value,
