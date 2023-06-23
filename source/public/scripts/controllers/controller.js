@@ -31,8 +31,7 @@ const templateSource = document.querySelector("#todo-item-template").innerHTML;
 const template = Handlebars.compile(templateSource);
 
 function loadTodoToForm(todo) {
-  todoSubmitBtn.style.display = "none";
-  todoUpdateBtn.style.display = "inline-block";
+  todoForm.classList.add("update");
   document.querySelector("#id").value = todo._id;
   document.querySelector("#title").value = todo.title;
   document.querySelector("#description").value = todo.description;
@@ -99,14 +98,14 @@ function updateItems() {
 }
 
 createTodoBtn.addEventListener("click", () => {
+  todoForm.classList.add("create");
   todoDialog.showModal();
   todoForm.reset();
-  todoUpdateBtn.style.display = "none";
-  todoSubmitBtn.style.display = "inline-block";
 });
 
 todoCancelBtn.addEventListener("click", () => {
   todoDialog.close();
+  todoForm.classList.remove("create", "update");
 });
 
 todoForm.addEventListener("submit", (e) => {

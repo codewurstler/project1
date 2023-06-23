@@ -212,18 +212,18 @@ body {
     opacity: 1;
 }
 
-#todo-form .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-}
-
 #todo-dialog {
     border: none;
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
     background: var(--bg-light);
     padding: 2rem;
+}
+
+#todo-form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
 }
 
 .dark-mode #todo-dialog {
@@ -243,6 +243,14 @@ body {
     #todo-form {
         width: 100%;
     }
+}
+
+#todo-form.create #todo-update {
+    display: none;
+}
+
+#todo-form.update #todo-submit {
+    display: none;
 }
 
 #todo-form .form-group.date {
