@@ -8,18 +8,13 @@ let todos;
 let currentFilter;
 let currentFilterOrder;
 
-// Dialog
 const todoDialog = document.querySelector("#todo-dialog");
 const createTodoBtn = document.querySelector("#btn-create");
 const todoUpdateBtn = document.querySelector("#todo-update");
 const todoCancelBtn = document.querySelector("#todo-cancel");
 const todoForm = document.querySelector("#todo-form");
-
-// Show done
 const openFilterBtn = document.querySelector("#btn-filter-done");
 let filterDone = localStorage.getItem("filter-done");
-
-// Filters
 const filterButtons = document.querySelectorAll(".btn-filter");
 
 const templateSource = document.querySelector("#todo-item-template").innerHTML;
@@ -97,15 +92,18 @@ function updateItems() {
   renderTodos();
 }
 
+todoUpdateBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (todoForm.reportValidity() === true) {
+    updateItems();
+    todoDialog.close();
+  }
+});
+
 createTodoBtn.addEventListener("click", () => {
   todoForm.classList.add("create");
   todoDialog.showModal();
   todoForm.reset();
-});
-
-todoCancelBtn.addEventListener("click", () => {
-  todoDialog.close();
-  todoForm.classList.remove("create", "update");
 });
 
 todoForm.addEventListener("submit", (e) => {
@@ -125,15 +123,11 @@ todoForm.addEventListener("submit", (e) => {
   renderTodos();
 });
 
-todoUpdateBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (todoForm.reportValidity() === true) {
-    updateItems();
-    todoDialog.close();
-  }
+todoCancelBtn.addEventListener("click", () => {
+  todoDialog.close();
+  todoForm.classList.remove("create", "update");
 });
 
-// Show done
 const enableFilterDone = () => {
   todosContainer.classList.add("filter-done");
   openFilterBtn.classList.add("active");
@@ -158,8 +152,6 @@ openFilterBtn.addEventListener("click", () => {
     enableFilterDone();
   }
 });
-
-// Filters
 
 filterButtons.forEach((filterButton) => {
   filterButton.addEventListener("click", (e) => {
