@@ -127,8 +127,10 @@ todoForm.addEventListener("submit", (e) => {
 
 todoUpdateBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  updateItems();
-  todoDialog.close();
+  if (todoForm.reportValidity() === true) {
+    updateItems();
+    todoDialog.close();
+  }
 });
 
 // Show done
