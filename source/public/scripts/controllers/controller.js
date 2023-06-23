@@ -11,7 +11,6 @@ let currentFilterOrder;
 // Dialog
 const todoDialog = document.querySelector("#todo-dialog");
 const createTodoBtn = document.querySelector("#btn-create");
-const todoSubmitBtn = document.querySelector("#todo-submit");
 const todoUpdateBtn = document.querySelector("#todo-update");
 const todoCancelBtn = document.querySelector("#todo-cancel");
 const todoForm = document.querySelector("#todo-form");
@@ -23,12 +22,12 @@ let filterDone = localStorage.getItem("filter-done");
 // Filters
 const filterButtons = document.querySelectorAll(".btn-filter");
 
-// Init dark mode
-new ModeController().init();
-
 const templateSource = document.querySelector("#todo-item-template").innerHTML;
 // eslint-disable-next-line no-undef
 const template = Handlebars.compile(templateSource);
+
+// eslint-disable-next-line no-undef
+Handlebars.registerHelper('dateFormat', (date) => new Date(date).toLocaleString('de-CH').split(',')[0]);
 
 function loadTodoToForm(todo) {
   todoForm.classList.add("update");
@@ -46,15 +45,15 @@ async function renderTodos() {
   if (currentFilter !== undefined) {
     if (currentFilterOrder === "desc") {
       todos.sort((a, b) =>
-        b[currentFilter]
-          .toLowerCase()
-          .localeCompare(a[currentFilter].toLowerCase())
+          b[currentFilter]
+              .toLowerCase()
+              .localeCompare(a[currentFilter].toLowerCase())
       );
     } else {
       todos.sort((a, b) =>
-        a[currentFilter]
-          .toLowerCase()
-          .localeCompare(b[currentFilter].toLowerCase())
+          a[currentFilter]
+              .toLowerCase()
+              .localeCompare(b[currentFilter].toLowerCase())
       );
     }
   }
@@ -71,18 +70,19 @@ async function renderTodos() {
   });
 
   document
-    .querySelectorAll(".btn-list-item-delete")
-    .forEach((todoDeleteButton) => {
-      todoDeleteButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (window.confirm("Are you sure you want to delete this todo?")) {
-          const todo = e.target.closest(".todo-list-item").dataset.id;
-          todoService.deleteTodo(todo);
-        }
-        renderTodos();
+      .querySelectorAll(".btn-list-item-delete")
+      .forEach((todoDeleteButton) => {
+        todoDeleteButton.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (window.confirm("Are you sure you want to delete this todo?")) {
+            const todo = e.target.closest(".todo-list-item").dataset.id;
+            todoService.deleteTodo(todo);
+          }
+          renderTodos();
+        });
       });
-    });
 }
+
 
 const getItemFromForm = () => ({
   id: document.querySelector("#id").value,

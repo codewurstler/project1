@@ -56,7 +56,7 @@
       </div>
 
       <div class="form-buttons">
-        <button type="button" id="todo-submit" class="btn"> Create</button>
+        <input type="submit" id="todo-submit" class="btn" value="Create">
         <button type="button" id="todo-update" class="btn">Update</button>
         <input type="reset" id="todo-cancel" value="Cancel" class="btn warning">
       </div>
@@ -92,7 +92,7 @@
       {{#each this}}
         <div class="todo-list-item importance-{{importance}} status-{{status}}" data-id="{{ _id }}">
           <div class="todo-list-item-inner-1">
-            <p>{{date}}</p>
+            <p>{{ dateFormat date}}</p>
             <p>{{status}}</p>
           </div>
           <div class="todo-list-item-inner-2">
