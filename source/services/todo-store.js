@@ -35,7 +35,7 @@ export class TodoStore {
   }
 
   async update(id, title, description, date, importance, status) {
-    await this.db.update(
+    return this.db.update(
       { _id: id },
       { $set: { title, description, date, importance, status } }
     );
