@@ -1,13 +1,12 @@
 import todoService from "../services/service.js";
 import ModeController from "./mode-controller.js";
 
-const todosContainer = document.querySelector("#todos");
-
 let todos;
 
 let currentFilter;
 let currentFilterOrder;
 
+const todosContainer = document.querySelector("#todos");
 const todoDialog = document.querySelector("#todo-dialog");
 const createTodoBtn = document.querySelector("#btn-create");
 const todoUpdateBtn = document.querySelector("#todo-update");
