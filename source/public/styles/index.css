@@ -220,6 +220,10 @@ body {
     padding: 2rem;
 }
 
+#todo-dialog::backdrop {
+    backdrop-filter: blur(8px);
+}
+
 #todo-form .form-group {
     display: flex;
     flex-direction: column;

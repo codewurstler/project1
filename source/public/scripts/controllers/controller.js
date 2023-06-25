@@ -97,6 +97,7 @@ todoUpdateBtn.addEventListener("click", (e) => {
   if (todoForm.reportValidity() === true) {
     updateItems();
     todoDialog.close();
+    todoForm.classList.remove("update");
   }
 });
 
@@ -120,6 +121,7 @@ todoForm.addEventListener("submit", (e) => {
 
   e.target.reset();
   todoDialog.close();
+  todoForm.classList.remove("create");
   renderTodos();
 });
 
